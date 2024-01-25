@@ -1,6 +1,6 @@
 from keras.layers import Input
-from keras.layers.advanced_activations import LeakyReLU
-from keras.layers.convolutional import Conv2D
+from keras.layers import LeakyReLU
+from keras.layers import Conv2D
 from keras.models import Model
 from keras_contrib.layers.normalization.instancenormalization import InstanceNormalization
 

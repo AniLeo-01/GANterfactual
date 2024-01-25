@@ -163,7 +163,7 @@ class CycleGAN():
                                                 self.lambda_id, self.lambda_id],
                                   optimizer=optimizer)
 
-    def train(self, dataset_name, epochs, batch_size=1, train_N="NEGATIVE", train_P="POSITIVE", print_interval=100,
+    def train(self, dataset_name, epochs, batch_size=1, train_N="0", train_P="1", print_interval=100,
               sample_interval=1000):
 
         # Configure data loader
@@ -255,10 +255,10 @@ class CycleGAN():
         reconstr_P = self.g_NP.predict(fake_N)
 
         imgs = [img_N, fake_P, reconstr_N, img_P, fake_N, reconstr_P]
-        classification = [['NEGATIVE', 'POSITIVE'][int(np.argmax(self.classifier.predict(x)))] for x in imgs]
+        classification = [['0', '1'][int(np.argmax(self.classifier.predict(x)))] for x in imgs]
 
         gen_imgs = np.concatenate(imgs)
-        correct_classification = ['NEGATIVE', 'POSITIVE', 'NEGATIVE', 'POSITIVE', 'NEGATIVE', 'POSITIVE']
+        correct_classification = ['0', '1', '0', '1', '0', '1']
 
         # Rescale images 0 - 1
         gen_imgs = 0.5 * gen_imgs + 0.5
@@ -285,11 +285,11 @@ class CycleGAN():
 
         pred_original = self.classifier.predict(original)
         if int(np.argmax(pred_original)) == 0:
-            print("PREDICTION -- NEGATIVE")
+            print("PREDICTION -- 0")
             translated = self.g_NP.predict(original)
             reconstructed = self.g_PN.predict(translated)
         else:
-            print("PREDICTION -- POSITIVE")
+            print("PREDICTION -- 1")
             translated = self.g_PN.predict(original)
             reconstructed = self.g_NP.predict(translated)
 

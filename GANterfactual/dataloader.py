@@ -17,7 +17,7 @@ class DataLoader():
             "rescale": None,
         }
 
-    def load_batch(self, train_N="NEGATIVE", train_P="POSITIVE", batch_size=16, is_testing=False):
+    def load_batch(self, train_N="0", train_P="1", batch_size=16, is_testing=False):
         generator = keras.preprocessing.image.ImageDataGenerator(**self.image_gen_config)
 
         flow_args = dict(

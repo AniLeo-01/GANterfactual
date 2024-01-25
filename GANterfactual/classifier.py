@@ -2,15 +2,15 @@ from __future__ import print_function, division
 from keras.layers import Input, Dense, Reshape, Flatten, Dropout, Concatenate
 from keras.layers import BatchNormalization, Activation, ZeroPadding2D, Lambda
 from keras.layers import Dense, Activation, Dropout, Flatten, Conv2D, MaxPooling2D
-from keras.layers.convolutional import UpSampling2D, Conv2D
-from keras.models import Sequential, Model
+from keras.layers import UpSampling2D, Conv2D
+from keras.models import Sequential, load_model, Model
 import keras
 
 # The trained classifier is loaded.
 # Rewrite this function if you want to use another model architecture than our modified AlexNET.
 # A model, which provides a 'predict' function, has to be returned.
 def load_classifier(path, img_shape):
-    original = keras.models.load(path)
+    original = load_model(path)
     classifier = build_classifier(img_shape)
 
     counter = 0
